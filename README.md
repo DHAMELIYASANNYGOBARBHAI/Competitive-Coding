@@ -1,1 +1,1 @@
-# Competitive-Coding by sunny
+# Competitive-Coding
