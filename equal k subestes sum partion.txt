@@ -1,0 +1,195 @@
+/******************************************************************************
+
+                            Dhameliya_Sanny
+                                DA-IICT
+                          B-Tech(second year)
+                            
+
+*******************************************************************************/
+#include "bits/stdc++.h"
+#include <stdio.h>
+using namespace std;
+
+/*******  All Required define Pre-Processors and typedef Constants *******/
+#define ll long long int 
+#define loop(i,l,k) for (int i=l ; i<k ; i++)
+#define rloop(i,l,k) for(int i=l-1;i>=k;i--)
+#define pb push_back
+#define F first
+#define S second
+#define all(c) (c).begin(),(c).end()
+#define sz(v) (int)(v).size()
+#define fast ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+typedef long double lld;
+typedef pair<long long int,long long int> pll;
+typedef vector<long long int > vi;
+typedef vector<pair<long long,long long> > vpll;
+#define MOD 998244353
+#define N 500005
+#define INF 1e9
+#define NINF -1e9
+
+//vector<vector<int>> vec( n , vector<int> (m, 0));
+ // uniqe values in arry ==> A.erase(unique(A.begin(), A.end()), A.end());
+
+bool fun(vector<vector<ll>> &ans,vector<ll> &ksize,vector<ll> &v,ll index,ll NES,ll sum)
+{
+    ll k=ksize.size();
+    ll n=v.size();
+
+ 
+
+    if(index==v.size())
+    {
+       
+       
+
+        if(NES==k)
+        {
+            
+            // then we done part into k nonempty subsets
+
+           bool res=true;
+
+            loop(i,0,k)
+            {
+               if(sum!=ksize[i])
+                res=false;
+            }
+
+            if(res)
+            {
+               loop(i,0,ans.size())
+               {
+                  loop(j,0,ans[i].size())
+                  {
+                    cout<<ans[i][j]<<" ";
+                  }
+
+                  cout<<endl;
+               }
+
+               return true;
+            }
+
+
+        }
+
+        return false;
+    }
+
+    
+    bool res=true;
+
+
+    loop(i,0,ans.size())
+    {
+        
+
+       if(ans[i].size() > 0) // hear first insert possible all nonempty subsets
+       {
+           
+
+           ksize[i]=ksize[i]+v[index];
+           ans[i].push_back(v[index]);
+         
+           res=fun(ans,ksize,v,index+1,NES,sum)||res;
+         
+           ans[i].pop_back();
+           ksize[i]=ksize[i]-v[index];
+       }
+       else    // if u want insert the element then insert into first empty subsets only
+       {
+
+           
+
+           ksize[i]=ksize[i]+v[index];
+           ans[i].push_back(v[index]);
+       
+           res=fun(ans,ksize,v,index+1,NES+1,sum)||res; // NES: none empty subsets
+          
+           ans[i].pop_back();
+           ksize[i]=ksize[i]-v[index];
+            
+            break; 
+
+       }
+    }
+
+
+    return res;
+}
+
+   
+
+
+ll solve()
+{
+   
+     
+   ll n;
+   cin>>n;
+
+  vector<ll>v(n,0);
+
+  ll sum=0;
+
+  loop(i,0,n)
+  {
+     cin>>v[i];
+     sum=sum+v[i];
+  }
+
+  ll k;
+  cin>>k;
+   
+   vector<ll>ksize(k,0);
+   vector<vector<ll>>ans(k);
+
+
+   if(sum%k==0)
+    {
+        if(fun(ans,ksize,v,0,0,sum/k))
+        {
+            cout<<"yes"<<endl;
+            return 0;
+        }
+
+    }
+
+    cout<<"NO"<<endl;
+  
+}
+
+
+
+int main()
+{
+
+      ios_base::sync_with_stdio(false);
+      cin.tie(NULL);
+
+      #ifndef ONLINE_JUDGE
+      freopen("input.txt", "r", stdin);
+      freopen("output1.txt", "w", stdout);
+      #endif  
+    
+   
+      ll t=1;
+    // cin>>t;
+
+       
+
+     while(t--)
+     {
+        //cout<<"hii"<<endl;
+
+         solve();
+     }
+
+    #ifndef ONLINE_JUDGE
+     cout << "\nTime Elapsed: " << (1000.0 * clock()) / CLOCKS_PER_SEC << " ms \n";
+    #endif
+
+    return 0;
+}

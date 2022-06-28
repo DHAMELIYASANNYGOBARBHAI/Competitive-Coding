@@ -1,0 +1,165 @@
+/******************************************************************************
+
+                            Dhameliya_Sanny
+                                DA-IICT
+                          B-Tech(second year)
+                            
+
+*******************************************************************************/
+#include "bits/stdc++.h"
+#include <stdio.h>
+using namespace std;
+
+/*******  All Required define Pre-Processors and typedef Constants *******/
+#define ll long long int 
+#define loop(i,l,k) for (int i=l ; i<k ; i++)
+#define rloop(i,l,k) for(int i=l-1;i>=k;i--)
+#define pb push_back
+#define F first
+#define S second
+#define all(c) (c).begin(),(c).end()
+#define sz(v) (int)(v).size()
+#define fast ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+typedef long double lld;
+typedef pair<long long int,long long int> pll;
+typedef vector<long long int > vi;
+typedef vector<pair<long long,long long> > vpll;
+#define MOD 998244353
+#define N 500005
+#define INF 1e9
+#define NINF -1e9
+
+//vector<vector<int>> vec( n , vector<int> (m, 0));
+
+
+
+
+ll solve()
+{
+
+
+    int n;
+    cin>>n;
+
+   vector<string> dict;
+    for(int i=0;i<n;i++)
+    {
+        string str;
+        cin>>str;
+        dict.push_back(str);
+
+    }
+
+    string s;
+    cin>>s;
+
+    n=s.size();
+
+   
+          int ans[n];
+        memset(ans,0,sizeof(ans));
+        
+        vector<vector<string>>v(n);
+        
+        
+        map<string,int>m;
+        
+        for(int i=0;i<dict.size();i++)
+        {
+            m[dict[i]]++;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<=i;j++)
+            {
+                string ss=s.substr(j,i-j+1);
+                
+                 //cout<<ss<<endl;
+
+                if(m.find(ss)!=m.end())
+                {
+                    //cout<<ss<<endl;
+
+                    if(j==0)
+                    {
+                        //cout<<i<<endl;
+
+                        v[i].push_back(ss);
+                        //cout<<v[2][0]<<endl;
+
+                    }
+                    else
+                    {
+                       // cout<<j<<" hii "<<ss<<" "<<v[j-1].size()<<endl;
+
+                        for(int k=0;k<v[j-1].size();k++)
+                        {
+                            string tem=" ";
+                            string newstr=v[j-1][k]+tem;
+                            newstr=newstr+ss;
+                            v[i].push_back(newstr);
+
+                            //cout<<newstr<<" hello "<<endl;
+
+                        }
+
+                    }
+                }
+                
+            }
+
+           // cout<<"---------->"<<endl;
+
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<v[i].size();j++)
+            {
+                cout<<v[i][j]<<" --> "<<endl;
+            }
+            
+            cout<<endl;
+        }
+        
+
+   
+
+ 
+
+
+
+
+}
+
+int main()
+{
+
+      ios_base::sync_with_stdio(false);
+      cin.tie(NULL);
+
+      #ifndef ONLINE_JUDGE
+      freopen("input.txt", "r", stdin);
+      freopen("output1.txt", "w", stdout);
+      #endif  
+    
+   
+      ll t=1;
+    // cin>>t;
+
+       
+
+     while(t--)
+     {
+        //cout<<"hii"<<endl;
+
+         solve();
+     }
+
+    #ifndef ONLINE_JUDGE
+     cout << "\nTime Elapsed: " << (1000.0 * clock()) / CLOCKS_PER_SEC << " ms \n";
+    #endif
+
+    return 0;
+}

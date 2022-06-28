@@ -1,0 +1,52 @@
+
+bool is_valid(bool graph[101][101], vector<int> &color,int c,int node)
+{
+    for(int i=0;i<101;i++)
+    {
+        if(graph[node][i]==1 && color[graph[node][i]]==c)
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
+bool fun(bool graph[101][101],  vector<int> &color,int m,int n,int node)
+{
+   // cout<<graph[0][0]<<endl;
+   
+   
+   if(n==node)
+   {
+       return true;
+   }
+    
+    for(int i=1;i<=m;i++)
+    {
+       if(is_valid(graph,color,i,node))
+       {
+           color[node]=i;
+           
+           if(fun(graph,color,m,n,node+1))
+           {
+               return true;
+           }
+           
+           color[node]=0;
+           
+       }
+    }
+    
+    
+    return false;
+}
+
+bool graphColoring(bool graph[101][101], int m, int V)
+{
+    
+    vector<int>color(101,0);
+    
+    
+    
+    return fun(graph,color,m,V,0);
+}

@@ -1,0 +1,141 @@
+/******************************************************************************
+
+                            Dhameliya_Sanny
+                                DA-IICT
+                          B-Tech(second year)
+                            
+
+*******************************************************************************/
+#include "bits/stdc++.h"
+#include <stdio.h>
+using namespace std;
+
+/*******  All Required define Pre-Processors and typedef Constants *******/
+#define ll long long int 
+#define loop(i,l,k) for (int i=l ; i<k ; i++)
+#define rloop(i,l,k) for(int i=l-1;i>=k;i--)
+#define pb push_back
+#define F first
+#define S second
+#define all(c) (c).begin(),(c).end()
+#define sz(v) (int)(v).size()
+#define fast ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+typedef long double lld;
+typedef pair<long long int,long long int> pll;
+typedef vector<long long int > vi;
+typedef vector<pair<long long,long long> > vpll;
+#define MOD 998244353
+#define N 500005
+#define INF 1e9
+#define NINF -1e9
+
+//vector<vector<int>> vec( n , vector<int> (m, 0));
+
+ll mindiff=INT_MAX;
+vector<ll>ans1;
+vector<ll>ans2;
+
+
+void fun(ll leval,ll s1,ll s2,vector<ll> &a,vector<ll> &b,vector<ll> &v)
+{
+     if(leval==v.size()) // end of itration
+     {
+         ll diff=abs(s1-s2);
+
+        // cout<<diff<<endl;
+
+
+         if(diff <= mindiff)
+         {
+            mindiff=diff;
+            ans1=a;
+            ans2=b;
+         }
+
+         return;
+     }
+
+    ll x=(v.size()+1)/2;
+
+     if(a.size() < x)
+     {
+        a.push_back(v[leval]);
+
+        fun(leval+1,s1+v[leval],s2,a,b,v);
+
+        a.pop_back();
+
+     }
+
+     if(b.size() < x)
+     {
+        b.push_back(v[leval]);
+        fun(leval+1,s1,s2+v[leval],a,b,v);
+        b.pop_back();
+     }
+}
+
+ll solve()
+{
+  
+   ll n;
+   cin>>n;
+
+    vector<ll>v(n,0);
+
+    loop(i,0,n)
+     cin>>v[i];
+
+     vector<ll>a;
+     vector<ll>b;
+
+     ll s1=0;
+     ll s2=0;
+
+   
+   fun(0,s1,s2,a,b,v);
+
+   loop(i,0,ans1.size())
+   cout<<ans1[i]<<" ";
+
+   cout<<endl;
+
+   loop(i,0,ans2.size())
+   cout<<ans2[i]<<" ";
+
+
+
+
+   
+}
+
+int main()
+{
+
+      ios_base::sync_with_stdio(false);
+      cin.tie(NULL);
+
+      #ifndef ONLINE_JUDGE
+      freopen("input.txt", "r", stdin);
+      freopen("output1.txt", "w", stdout);
+      #endif  
+    
+   
+      ll t=1;
+    // cin>>t;
+
+       
+
+     while(t--)
+     {
+        //cout<<"hii"<<endl;
+
+         solve();
+     }
+
+    #ifndef ONLINE_JUDGE
+     cout << "\nTime Elapsed: " << (1000.0 * clock()) / CLOCKS_PER_SEC << " ms \n";
+    #endif
+
+    return 0;
+}

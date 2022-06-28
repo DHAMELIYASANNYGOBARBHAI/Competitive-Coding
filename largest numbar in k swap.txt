@@ -1,0 +1,35 @@
+void fun(string str,int k,string& maxstr)
+    {
+  
+       // cout<<str<<endl;
+        
+        if(k==0)
+        return;
+        
+        for(int i=0;i<str.size()-1;i++)
+        {
+            for(int j=i+1;j<str.size();j++)
+            {
+                if(str[j] > str[i])
+                {
+                    swap(str[i],str[j]);
+                    
+                       
+             if (str.compare(maxstr) > 0)
+                    maxstr = str;
+        
+                    fun(str,k-1,maxstr);
+                    swap(str[i],str[j]);
+                }
+            }
+        }
+    }
+    
+    string findMaximumNum(string str, int k)
+    {
+           string maxstr=str;
+           
+           fun(str,k,maxstr);
+           
+           return maxstr;
+    }

@@ -1,0 +1,87 @@
+class Solution {
+public:
+    
+    int Minimum_remove_parentheses(string str)
+    {
+       int n=str.size();
+       
+        stack<char>s;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(str[i]=='(')
+            {
+                s.push('(');
+            }
+            else if(str[i]==')')
+            {
+                if(s.empty())
+                {
+                    s.push(')');
+                }
+                else if(s.top()==')')
+                {
+                    s.push(')');
+                }
+                else if(s.top()=='(')
+                {
+                    s.pop();
+                 }
+            }
+        }
+        
+        return s.size();
+        
+     }
+    
+    void fun(string str,int r,set<string> &ans)
+    {
+       if(r==0)
+        {
+            int rr=Minimum_remove_parentheses(str);
+            if(rr==0)
+            {
+                ans.insert(str);
+            }
+        }
+
+      for(int i=0;i<str.size();i++)
+      {
+          string left=str.substr(0,i);
+          string right = str.substr(i+1);
+
+            //cout<<left.size()<<" "<<right.size()<<endl;
+            //cout<<left<<" "<<right<<endl;
+
+          
+          string tem=left+right;
+             fun(tem,r-1,ans);
+       }
+        
+        
+        
+    }
+    vector<string>removeInvalidParentheses(string s)
+    {
+          int m=Minimum_remove_parentheses(s);
+        
+        set<string>ans;
+
+
+        //cout<<m<<endl;
+
+
+        
+        fun(s,m,ans);
+        
+        vector<string>sans;
+        
+        for(auto it=ans.begin();it!=ans.end();it++)
+        {
+           sans.push_back(*it);
+        }
+
+        return sans;
+        
+    }
+};

@@ -1,0 +1,59 @@
+ //Function to return a list of indexes denoting the required 
+    //combinations whose sum is equal to given number.
+    
+    void fun(vector<vector<int>> &ans,vector<int> &tem,vector<int> &A,int sum,int index)
+    {
+        if(sum<0)
+        return;
+        
+        if(sum==0)
+        {
+           // sort(tem.begin(),tem.end());
+          //  for(int i=0;i<tem.size();i++)
+           // cout<<tem[i]<<" ";
+            
+           // cout<<endl;
+            ans.push_back(tem);
+            return;
+        }
+        
+        for(int i=index;i<A.size();i++)
+        {
+            if(sum >= A[i])
+            {
+                
+            tem.push_back(A[i]);
+            fun(ans,tem,A,sum-A[i],i);
+            tem.pop_back();
+            
+            }
+            else
+            break;
+        }
+    }
+    
+    vector<vector<int> > combinationSum(vector<int> &A, int B)
+    {
+        
+        vector<vector<int>>ans;
+        
+        //set<vector<int>>s;
+        
+        vector<int>tem;
+        
+        sort(A.begin(),A.end());
+          A.erase(unique(A.begin(), A.end()), A.end());
+        
+        
+        fun(ans,tem,A,B,0);
+        
+        /*for(auto it=s.begin();it!=s.end();it++)
+        {
+            //vector<int>
+            //sort(*it.begin(),*it.end());
+            ans.push_back(*it);
+        }
+        */
+        return ans;
+       
+    }

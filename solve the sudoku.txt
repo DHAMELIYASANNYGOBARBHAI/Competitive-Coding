@@ -1,0 +1,99 @@
+class Solution 
+{
+    public:
+    //Function to find a solved Sudoku. 
+    
+    bool is_valid(int r,int c,int x,vector<vector<int>> &vec)
+    {
+        for(int i=0;i<9;i++)
+        {
+            if(vec[r][i]==x)
+            return false;
+        }
+        
+        for(int i=0;i<9;i++)
+        {
+            if(vec[i][c]==x)
+            return false;
+            
+        }
+        
+        int row=(r/3)*3;
+        int col=(c/3)*3;
+        
+        for(int i=row;i<row+3;i++)
+        {
+            for(int j=col;j<col+3;j++)
+            {
+                if(vec[i][j]==x)
+                return false;
+            }
+            
+        }
+        
+        return true;
+    }
+    bool fun(int r,int c, vector<vector<int>> &vec)
+    {
+        if(r==9)
+        return true;
+        
+        if(c==9)
+        return fun(r+1,0,vec); // one col is khatam then goes to next row 
+        
+        if(vec[r][c]!=0)
+        return fun(r,c+1,vec);
+        
+        for(int i=1;i<10;i++)
+        {
+            if(is_valid(r,c,i,vec))
+            {
+                vec[r][c]=i;
+                
+                if(fun(r,c+1,vec))
+                {
+                    return true;
+                }
+                else
+                vec[r][c]=0;   // backtarcing
+            }
+        }
+        
+        
+        return false;
+    }
+    bool SolveSudoku(int grid[N][N])  
+    { 
+        vector<vector<int>>vec(9, vector<int>(9, 0));
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                vec[i][j]=grid[i][j];
+            }
+        }
+        
+        fun(0,0,vec);
+        
+          for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+                grid[i][j]=vec[i][j];
+                cout<<vec[i][j]<<" ";
+            }
+        }
+    }
+    
+    //Function to print grids of the Sudoku.
+    void printGrid (int grid[N][N]) 
+    {
+          for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+               // cout<<grid[i][j]<<" ";
+            }
+        }
+    }
+}
