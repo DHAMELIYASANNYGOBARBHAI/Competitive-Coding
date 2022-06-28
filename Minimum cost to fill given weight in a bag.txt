@@ -1,0 +1,66 @@
+	int minimumCost(int cost[], int N, int W) 
+	{ 
+        int dp[N+1][W+1];
+        
+        for(int i=0;i<=N;i++)
+        {
+            for(int j=0;j<=W;j++)
+            {
+                if(i==0 && j==0)
+                {
+                    dp[i][j]=0;
+                }
+                else if(i==0)
+                {
+                    dp[i][j]=INT_MAX;
+                }
+                else if(j==0)
+                {
+                    dp[i][j]=0;
+                }
+                else
+                {
+                    if(i>j)
+                    {
+                        dp[i][j]=dp[i-1][j];
+                    }
+                    else if(cost[i-1]==-1 && dp[i-1][j]==INT_MAX)
+                    {
+                        dp[i][j]=INT_MAX;
+                    }
+                    else if(cost[i-1]==-1)
+                    {
+                        dp[i][j]=dp[i-1][j];
+                    }
+                    else if(dp[i-1][j]==INT_MAX)
+                    {
+                        
+                        if(dp[i][j-i]==INT_MAX)
+                        dp[i][j]=INT_MAX;
+                        else
+                         dp[i][j] = dp[i][j-i]+cost[i-1];   
+                     // cout<<i<<" "<<j<<"hii"<<dp[i][W-j]<<" "<<i<<" "<<W-j<<endl;
+                    }
+                    else
+                    {
+                        
+                        if(dp[i][j-i]==INT_MAX)
+                        dp[i][j]=dp[i-1][j];
+                        else
+                        dp[i][j]=min(dp[i][j-i]+cost[i-1],dp[i-1][j]);
+                    }
+                }
+                
+            //cout<<dp[i][j]<<" ";
+            }
+            
+        // cout<<endl;
+            
+        }
+        
+        
+        if(dp[N][W]==INT_MAX)
+        return -1;
+        else
+        return dp[N][W];
+	} 

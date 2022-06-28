@@ -1,0 +1,39 @@
+int maximumSumRectangle(int R, int C, vector<vector<int>> M) 
+    {
+        int ans=INT_MIN;
+        
+        for(int i=0;i<R;i++)
+        {
+            vector<int>tem(C,0);
+            
+            for(int j=i;j<R;j++)
+            {
+                 for(int k=0;k<C;k++)
+                 {
+                     tem[k]=tem[k]+M[j][k];
+                 }
+                 
+                 
+         int ans1=INT_MIN;
+        int sum=0;
+       
+       for(int ii=0;ii<C;ii++)
+       {
+           sum=sum+tem[ii];
+           ans1=max(ans1,sum);
+           
+           if(sum<0)
+             sum=0;
+             
+         }
+       
+                 //cout<<ans1<<" ";
+                 ans=max(ans,ans1);
+            }
+            
+            //cout<<endl;
+            
+        }
+        
+        return ans;
+    }

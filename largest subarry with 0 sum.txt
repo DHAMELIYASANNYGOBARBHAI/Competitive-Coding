@@ -1,0 +1,33 @@
+int maxLen(vector<int>&A, int n)
+    {   
+       map<int,int>m;
+       
+       int ans=0;
+       
+       if(A[0]==0)
+         ans=1;
+         
+         m[A[0]]=0;
+       
+       for(int i=1;i<A.size();i++)
+       {
+          
+          A[i]=A[i]+A[i-1];
+          
+          if(A[i]==0)
+          {
+              ans=max(ans,i+1);
+          }
+          else if(m.find(A[i])!=m.end())
+          {
+              ans=max(ans,i-m[A[i]]);
+          }
+          else
+          {
+              m[A[i]]=i;
+          }
+       }
+       
+       
+       return ans;
+    }

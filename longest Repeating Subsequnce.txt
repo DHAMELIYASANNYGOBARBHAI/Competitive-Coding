@@ -1,0 +1,36 @@
+public:
+	
+    int fun(string s,int x,int y,int &dp[][s.size()])
+	    {
+	        int n=s.size();
+	        
+	        if(x==n || y==n)
+	          return 0;
+	        
+	        
+	        if(dp[x][y]!=-1)
+	        return dp[x][y];
+	        
+	        if(s[x]==s[y] && x!=y)
+	        {
+	            dp[x][y]=fun(s,x+1,y+1,dp)+1;
+	        }
+	        else
+	        {
+	            dp[x][y]=max(fun(s,x+1,y,dp),fun(s,x,y+1,dp));
+	        }
+	        
+	        return dp[x][y];
+	        
+	        
+	    }
+		int LongestRepeatingSubsequence(string str)
+		{
+		       int n=str.size();
+		       
+		      int dp[n][n];
+		      memset(dp,-1,sizeof(dp));
+		      
+		    
+		     return fun(str,0,0,dp);  
+		}

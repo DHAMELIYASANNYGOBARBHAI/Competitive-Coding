@@ -1,0 +1,56 @@
+long long int dp[10][50];
+	
+	long long int fun(int ls,int n,vector<vector<int>> &v)
+	{
+	    if(n==0)
+	    return 1;
+	    
+	    if(dp[ls][n]!=-1)
+	    return dp[ls][n];
+	    
+	    long long int res=0;
+	    
+	    for(int i=0;i<v[ls].size();i++)
+	    {
+	        res=res+fun(v[ls][i],n-1,v);
+	    }
+	    
+	    dp[ls][n]=res;
+	    
+	    return res;
+	}
+	
+	long long getCount(int N)
+	{
+	     int n=N;
+	     memset(dp,-1,sizeof(dp));
+	     
+	    vector<vector<int>>v
+	    {
+	        
+        {0,8},
+        {1,2,4},
+        {2,1,3,5},
+        {3,2,6},
+        {4,1,5,7},
+        {5,2,4,6,8},
+        {6,3,5,9},
+        {7,4,8},
+        {8,5,7,0,9},
+        {9,6,8}
+       
+         };
+         
+      if(n==0)
+      return 0;
+      
+      long long int ans=0;
+      
+      for(int i=0;i<10;i++)
+      {
+          ans=ans+fun(i,n-1,v);
+      }
+     
+	     return ans;
+	      
+	}

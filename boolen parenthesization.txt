@@ -1,0 +1,84 @@
+ int countWays(int N, string S)
+    {
+        
+        string s1="";
+        string s2="";
+        int mod=1003;
+        
+        for(int i=0;i<N;i++)
+        {
+            if(S[i]=='T' || S[i]=='F')
+            {
+                s1=s1+S[i];
+            }
+            else
+            {
+                s2=s2+S[i];
+            }
+        }
+        
+       // cout<<s1<<endl;
+    //    cout<<s2<<endl;
+        
+        int n=s1.size();
+        int dpt[n][n];
+        int dpf[n][n];
+        
+        for(int g=0;g<n;g++)
+        {
+            for(int i=0,j=g;j<n;j++,i++)
+            {
+                if(g==0)
+                {
+                    if(s1[i]=='T')
+                    {
+                        dpt[i][j]=1;
+                        dpf[i][j]=0;
+                    }
+                    else
+                    {
+                        dpt[i][j]=0;
+                        dpf[i][j]=1;
+                    }
+                    
+                }
+                else 
+                { 
+                    int twf=0;
+                    int twt=0;
+                    
+                   for(int k=i;k<j;k++)
+                   {
+                       
+                       
+                       int ltwt=dpt[i][k];
+                       int ltwf=dpf[i][k];
+                       
+                       int rtwt=dpt[k+1][j];
+                       int rtwf=dpf[k+1][j];
+                       
+                       if(s2[k]=='|')
+                       {
+                           twt=( twt + (ltwt*rtwt)%mod + (ltwt*rtwf)%mod + (ltwf*rtwt)%mod)%mod;
+                           twf=(twf+ (ltwf*rtwf)%mod)%mod;
+                       }
+                       else if(s2[k]=='&')
+                       {
+                           twt=(twt+(ltwt*rtwt)%mod)%mod;
+                           twf=(twf+(ltwt*rtwf)%mod + (ltwf*rtwt)%mod + (ltwf*rtwf)%mod)%mod;
+                       }
+                       else
+                       {
+                           twt=(twt+(ltwt*rtwf)%mod + (ltwf*rtwt)%mod)%mod;
+                           twf=(twf+(ltwf*rtwf)%mod + (ltwt*rtwt)%mod)%mod;
+                       }
+                   }
+                   
+                   dpt[i][j]=twt%mod;
+                   dpf[i][j]=twf%mod;
+                }
+            }
+        }
+        
+        return dpt[0][n-1]%mod;
+    }

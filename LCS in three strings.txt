@@ -1,0 +1,37 @@
+int dp[100][100][100];
+
+int  fun(string a,string b,string c,int n1,int n2,int n3)
+{
+    if(n1==0 || n2==0 || n3==0)
+    return 0;
+    
+    if(dp[n1][n2][n3]!=-1)
+    return dp[n1][n2][n3];
+    
+    int ans=0;
+    
+    if(a[n1-1]==b[n2-1] && b[n2-1]==c[n3-1])
+    {
+       ans=fun(a,b,c,n1-1,n2-1,n3-1)+1; 
+    }
+    else
+    {
+        ans=max(fun(a,b,c,n1-1,n2,n3),max(fun(a,b,c,n1,n2-1,n3),fun(a,b,c,n1,n2,n3-1)));
+    }
+    
+    dp[n1][n2][n3]=ans;
+    
+    return ans;
+    
+}
+int LCSof3 (string A, string B, string C, int n1, int n2, int n3)
+{
+  
+    
+    memset(dp,-1,sizeof(dp));
+    
+    fun(A,B,C,n1,n2,n3);
+    
+    return dp[n1][n2][n3];
+    
+}

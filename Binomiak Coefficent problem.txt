@@ -1,0 +1,45 @@
+ int nCr(int n, int r){
+        
+        long long int dp[n+1][r+1];
+        
+        memset(dp,0,sizeof(dp));
+        
+        
+        if(n==0 && r==0)
+        return 0;
+        
+        if(r==0)
+        return 1;
+        
+        
+        long long int mod=1000000007;
+        
+        for(int i=0;i<n+1;i++)
+        {
+            dp[i][0]=1;
+        }
+        
+        for(int i=1;i<n+1;i++)
+        {
+            for(int j=1;j<r+1;j++)
+            {
+                dp[i][j]= (dp[i-1][j-1]+dp[i-1][j] )%mod;
+                
+                
+            }
+        }
+        
+        
+           for(int i=0;i<n+1;i++)
+        {
+            for(int j=0;j<r+1;j++)
+            {
+               
+               //cout<<"n = "<<i<<"  r="<<j<<"--->"<<dp[i][j]<<endl; 
+                
+            }
+        }
+        return dp[n][r];
+        
+    }
+};

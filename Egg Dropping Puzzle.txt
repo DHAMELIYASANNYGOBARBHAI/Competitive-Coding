@@ -1,0 +1,37 @@
+ //Function to find minimum number of attempts needed in 
+    //order to find the critical floor.
+    
+    int fun(int n,int k,vector<vector<int>> &dp)
+    {
+        if(n==1) // if we have 1 egg then k floor cheak in worst case
+        return k;
+        
+        if(k==0 || k==1) // if zero or one foloor then k is ans
+        return k;
+        
+        if(dp[n][k]!=-1)
+        return dp[n][k];
+        
+        int ans=INT_MAX;
+        
+        for(int i=1;i<=k;i++)
+        {
+            int tem = 1 + max(fun(n-1,i-1,dp),fun(n,k-i,dp));  // worst case so max
+            ans=min(ans,tem); // min moves to get ans 
+        }
+         
+         
+         dp[n][k]=ans;
+         
+         return dp[n][k];
+         
+         
+    }
+    int eggDrop(int n, int k) 
+    {
+         vector<vector<int>>dp(n+1,vector<int>(k+1, -1));
+         
+         return fun(n,k,dp);
+         
+         
+    }

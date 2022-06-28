@@ -1,0 +1,27 @@
+int maxSumPairWithDifferenceLessThanK(int arr[], int N, int K)
+    {
+        int i=N-1;
+        int sum=0;
+        
+        
+        sort(arr,arr+N);
+        
+        while(i>0)
+        {
+            int diff=arr[i]-arr[i-1];
+            
+            if(diff < K)
+            {
+                sum=sum+arr[i];
+                i--;
+                sum=sum+arr[i];
+                i--;
+            }
+            else
+            i--;
+            
+            //cout<<sum<<" --> "<<i<<endl;
+        }
+        
+        return sum;
+    }

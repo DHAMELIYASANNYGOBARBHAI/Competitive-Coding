@@ -1,0 +1,88 @@
+ int solveWordWrap(vector<int>nums, int k) 
+    { 
+         
+    
+         int n=nums.size();
+         int INF=INT_MAX;
+         
+         int space[n+1][n+1];
+         int val[n+1][n+1];
+         int cost[n+1];
+         
+         memset(space,0,sizeof(space));
+         memset(val,0,sizeof(val));
+
+         cost[n]=0;
+         
+         for(int i=0;i<n;i++)
+         {
+             space[i][i]=k-nums[i];
+
+
+
+            
+             
+             for(int j=i+1;j<n;j++)
+             {
+                 space[i][j]=space[i][j-1]-nums[j]-1;
+
+                
+             }
+
+            // cout<<endl;
+             
+         }
+
+
+         
+         for(int i=0;i<n;i++)
+         {
+             for(int j=i;j<n;j++)
+             {
+                 if(space[i][j]<0)
+                 {
+                    val[i][j]=INF;
+                 }
+                 else if(j==n-1)
+                 {
+                     val[i][j]=0;
+                 }
+                 else
+                 {
+                     val[i][j]=space[i][j]*space[i][j];
+                 }
+             }
+             
+         }
+
+
+     
+       
+         
+         cost[n]=0;
+         cost[n-1]=val[n-1][n-1];
+         
+         for(int i=n-2;i>-1;i--)
+         {
+             cost[i]=INF;
+             
+             for(int j=n-1;j>=i;j--)
+             {
+                 if(val[i][j]==INF || cost[j+1]==INF)
+                   continue;
+                 
+                 cost[i]=min(cost[i],val[i][j]+cost[j+1]);
+             }
+         }
+         
+         
+      
+        
+        
+         
+        
+        
+        return cost[0];
+         
+    } 
+};

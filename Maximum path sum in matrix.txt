@@ -1,0 +1,41 @@
+ int maximumPath(int N, vector<vector<int>> Matrix)
+    {
+        for(int i=N-2;i>-1;i--)
+        {
+            for(int j=0;j<N;j++)
+            {
+                int tem=0;
+                
+                if(j>0)
+                {
+                    tem=Matrix[i+1][j-1];
+                }
+                
+                if(j<N-1)
+                {
+                   tem=max(tem,Matrix[i+1][j+1]); 
+                }
+                
+                tem=max(tem,Matrix[i+1][j]);
+                
+                Matrix[i][j]+=tem;
+                
+            }
+        }
+        
+        int ans=0;
+        
+        for(int i=0;i<N;i++)
+        {
+            for(int j=0;j<N;j++)
+            {
+               // cout<<Matrix[i][j]<<" ";
+            }
+            
+           // cout<<endl;
+            
+           ans=max(ans,Matrix[0][i]); 
+        }
+        
+        return ans;
+    }

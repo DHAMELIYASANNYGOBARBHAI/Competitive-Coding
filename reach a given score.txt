@@ -1,0 +1,36 @@
+long long int fun(long long int n,int index)
+{
+    
+    if(n<0)
+    return 0;
+    
+    if(n==0)
+    return 1;
+    
+    
+    if(index==0)
+    {
+        return fun(n-3,0)+fun(n-5,1)+fun(n-10,2);
+    }
+    else if(index==1)
+    {
+        return fun(n-5,1)+fun(n-10,2);
+    }
+    else
+    {
+        return fun(n-10,2);
+    }
+    
+    
+}
+
+long long int count(long long int n)
+{
+
+    
+   long long int ans=fun(n,0);
+    
+    return ans;
+	
+
+}

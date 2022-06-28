@@ -1,0 +1,158 @@
+/******************************************************************************
+
+                            Dhameliya_Sanny
+                                DA-IICT
+                          B-Tech(second year)
+                            
+
+*******************************************************************************/
+#include "bits/stdc++.h"
+#include <stdio.h>
+using namespace std;
+
+/*******  All Required define Pre-Processors and typedef Constants *******/
+#define ll long long int 
+#define loop(i,l,k) for (int i=l ; i<k ; i++)  // ( 0 to n-1)
+#define rloop(i,l,k) for(int i=l-1;i>=k;i--)  // (n-1 to 0)
+#define pb push_back 
+#define F first
+#define S second
+#define all(c) (c).begin(),(c).end()
+#define sz(v) (int)(v).size()
+#define fast ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+typedef long double lld;
+typedef pair<long long int,long long int> pll;
+typedef vector<long long int > vi;
+typedef vector<pair<long long,long long> > vpll;
+#define MOD 998244353
+#define N 500005
+#define INF 1e9
+#define NINF -1e9
+
+//vector<vector<int>> vec( n , vector<int> (m, 0));
+ // uniqe values in arry ==> A.erase(unique(A.begin(), A.end()), A.end());
+
+// priority_queue<int> gquiz;  //max
+//  priority_queue <int, vector<int>, greater<int> > pq;  // min
+//set<int> s(arr, arr + n);
+//set<int>::iterator itr = s.begin(); // s.begin() returns a pointer to first // element in the set
+// advance(itr, k - 1); // itr points to kth element in set
+
+
+bool jobComparator(pair<ll,pair<ll,ll>> s1, pair<ll,pair<ll,ll>> s2)
+{
+    return (s1.second.first < s2.second.first);
+}
+
+ 
+ll solve()
+{
+    ll n;
+    cin>>n;
+
+     ll key[n];
+     ll freq[n];
+     ll pfreq[n];
+
+     for(int i=0;i<n;i++)
+     {
+       ll k,f;
+       cin>>k>>f;
+       
+       key[i]=k;
+       freq[i]=f;
+
+       if(i==0)
+       {
+         pfreq[i]=freq[i];
+       }
+       else
+       {
+         pfreq[i]=pfreq[i-1]+freq[i];
+       }
+
+     }
+
+     ll dp[n][n];
+
+     for(int g=0;g<n;g++)
+     {
+        for(int i=0,j=g;j<n;j++,i++)
+        {
+           if(g==0)
+           {
+              dp[i][j]=freq[i];
+           }
+           else if(g==1)
+           {
+              dp[i][j]=min(freq[i]+2*freq[j],freq[j]+2*freq[i]);
+           }
+           else
+           {
+               int ans=INT_MAX;
+               int f=pfreq[j];
+
+               if(i!=0)
+               {
+                  f=f-pfreq[i-1];
+               }
+
+               for(int k=i;k<=j;k++)
+               {
+                   int left = 0 ;
+
+                   if(k!=i)
+                     left = dp[i][k-1];
+
+                    int right = 0;
+
+                    if(k!=j)
+                  right=dp[k+1][j];
+
+                   ans=min(ans,left+right+f);
+               }
+
+               dp[i][j]=ans;
+           }
+
+          // cout<<dp[i][j]<<" ";
+        }
+
+        //cout<<endl;
+     }
+
+     cout<<dp[0][n-1]<<endl;
+
+}
+
+int main()
+{
+
+      ios_base::sync_with_stdio(false);
+      cin.tie(NULL);
+
+      #ifndef ONLINE_JUDGE
+      freopen("input.txt", "r", stdin);
+      freopen("output11.txt", "w", stdout);
+      #endif  
+    
+   
+      ll t=1;
+    // cin>>t;
+
+       //cout<<"hii"<<endl;
+
+
+     while(t--)
+     {
+        //cout<<"hii"<<endl;
+
+         solve();
+     }
+
+    #ifndef ONLINE_JUDGE
+     cout << "\nTime Elapsed: " << (1000.0 * clock()) / CLOCKS_PER_SEC << " ms \n";
+    #endif
+
+    return 0;
+}

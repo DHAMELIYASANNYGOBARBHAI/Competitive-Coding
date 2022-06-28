@@ -1,0 +1,40 @@
+
+    long long int dp[1000][1000];
+    
+    long long int fun(vector<int> &v,int n,int index)
+    {
+        if(n<0)
+        return 0;
+        
+        
+       if(n==0)
+       return 1;
+       
+       
+       if(index==v.size())
+       return 0;
+       
+       
+       if(dp[n][index]!=-1)
+       return dp[n][index];
+       
+        
+        return dp[n][index]=fun(v,n-v[index],index)+fun(v,n,index+1);
+       
+       
+    }
+    long long int count(int S[], int m, int n)
+    {
+      
+      vector<int>v;
+      
+      memset(dp,-1,sizeof(dp));
+      
+      for(int i=0;i<m;i++)
+        v.push_back(S[i]);
+        
+        
+      
+      return fun(v,n,0);  
+         
+    }

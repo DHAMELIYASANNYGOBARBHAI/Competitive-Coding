@@ -1,0 +1,114 @@
+/******************************************************************************
+
+                            Dhameliya_Sanny
+                                DA-IICT
+                          B-Tech(second year)
+                            
+
+*******************************************************************************/
+#include "bits/stdc++.h"
+#include <stdio.h>
+using namespace std;
+
+/*******  All Required define Pre-Processors and typedef Constants *******/
+#define ll long long int 
+#define loop(i,l,k) for (int i=l ; i<k ; i++)
+#define rloop(i,l,k) for(int i=l-1;i>=k;i--)
+#define pb push_back
+#define F first
+#define S second
+#define all(c) (c).begin(),(c).end()
+#define sz(v) (int)(v).size()
+#define fast ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+typedef long double lld;
+typedef pair<long long int,long long int> pll;
+typedef vector<long long int > vi;
+typedef vector<pair<long long,long long> > vpll;
+#define MOD 998244353
+#define N 500005
+#define INF 1e9
+#define NINF -1e9
+
+//vector<vector<int>> vec( n , vector<int> (m, 0));
+ // uniqe values in arry ==> A.erase(unique(A.begin(), A.end()), A.end());
+
+// priority_queue<int> gquiz;
+//  priority_queue <int, vector<int>, greater<int> > pq;
+//set<int> s(arr, arr + n);
+//set<int>::iterator itr = s.begin(); // s.begin() returns a pointer to first // element in the set
+// advance(itr, k - 1); // itr points to kth element in set
+
+ 
+ll solve()
+{
+     ll n;
+     cin>>n;
+
+     vector<ll>v(n,0);
+
+     loop(i,0,n)
+     cin>>v[i];
+
+
+    
+
+    vector<ll>dp(n+1,0);
+
+    dp[0]=v[0];
+    dp[1]=v[1]+v[0];
+
+      // 1.case excliuse v[i],v[i-1],v[i-2]
+
+    loop(i,2,n)
+     {
+        dp[i]=max(dp[i],dp[i-1]); // exclude v[i];
+        dp[i]=max(dp[i],dp[i-2]+v[i]); // v[0]...v[i-2] + v[i] -->exclude v[i-1]
+
+        if(i==2)
+        {
+           dp[i]=max(dp[i],v[i-1]+v[i]);
+              continue;
+        }
+
+        dp[i]=max(dp[i],dp[i-3]+v[i-1]+v[i]);  // v[0]....v[i-3] +v[i-1]+v[i]....->exclude v[i-2] 
+     }
+
+
+     cout<<dp[n-1]<<endl;
+    
+ }
+
+  
+
+
+
+int main()
+{
+
+      ios_base::sync_with_stdio(false);
+      cin.tie(NULL);
+
+      #ifndef ONLINE_JUDGE
+      freopen("input.txt", "r", stdin);
+      freopen("output1.txt", "w", stdout);
+      #endif  
+    
+   
+      ll t=1;
+    // cin>>t;
+
+       
+
+     while(t--)
+     {
+        //cout<<"hii"<<endl;
+
+         solve();
+     }
+
+    #ifndef ONLINE_JUDGE
+     cout << "\nTime Elapsed: " << (1000.0 * clock()) / CLOCKS_PER_SEC << " ms \n";
+    #endif
+
+    return 0;
+}

@@ -1,0 +1,23 @@
+ int countFriendsPairings(int n) 
+    { 
+      long long int  dp[100005];
+       
+       memset(dp,0,sizeof(dp));
+       
+       dp[0]=0;
+       dp[1]=1;
+       dp[2]=2;
+       
+       long long int mod=1000000007;
+       
+       for(int i=3;i<=n;i++)
+       {
+           dp[i] = (dp[i-1]%mod + ((i-1)*dp[i-2])%mod)%mod;
+           
+           // first nth add pepople ans is  then n-1 will add all pepole  and then pair with n-1 way to select any othrn and ans of last n-2 ans. add
+           //cout<<i<<"----> "<<dp[i]<<endl;
+       }
+       
+       return dp[n];
+       
+    }

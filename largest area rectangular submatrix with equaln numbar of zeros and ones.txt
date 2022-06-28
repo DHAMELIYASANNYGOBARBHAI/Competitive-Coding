@@ -1,0 +1,207 @@
+/******************************************************************************
+
+                            Dhameliya_Sanny
+                                DA-IICT
+                          B-Tech(second year)
+                            
+
+*******************************************************************************/
+#include "bits/stdc++.h"
+#include <stdio.h>
+using namespace std;
+
+/*******  All Required define Pre-Processors and typedef Constants *******/
+#define ll long long int 
+#define loop(i,l,k) for (int i=l ; i<k ; i++)  // ( 0 to n-1)
+#define rloop(i,l,k) for(int i=l-1;i>=k;i--)  // (n-1 to 0)
+#define pb push_back 
+#define F first
+#define S second
+#define all(c) (c).begin(),(c).end()
+#define sz(v) (int)(v).size()
+#define fast ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+typedef long double lld;
+typedef pair<long long int,long long int> pll;
+typedef vector<long long int > vi;
+typedef vector<pair<long long,long long> > vpll;
+#define MOD 998244353
+#define N 500005
+#define INF 1e9
+#define NINF -1e9
+
+//vector<vector<int>> vec( n , vector<int> (m, 0));
+ // uniqe values in arry ==> A.erase(unique(A.begin(), A.end()), A.end());
+
+// priority_queue<int> gquiz;  //max
+//  priority_queue <int, vector<int>, greater<int> > pq;  // min
+//set<int> s(arr, arr + n);
+//set<int>::iterator itr = s.begin(); // s.begin() returns a pointer to first // element in the set
+// advance(itr, k - 1); // itr points to kth element in set
+
+
+bool jobComparator(pair<ll,pair<ll,ll>> s1, pair<ll,pair<ll,ll>> s2)
+{
+    return (s1.second.first < s2.second.first);
+}
+
+pair<int,int> fun(vector<int> v)
+{
+      int l=0;
+      int r=0;
+
+      int ans=0;
+
+      map<int,int>m;
+
+     // cout<<"hii"<<endl;
+
+      for(int i=0;i<v.size();i++)
+      {
+         //cout<<v[i]<<" ";
+         if(i)
+         {
+           v[i]=v[i]+v[i-1];
+         }
+
+         if(v[i]==0)
+         {
+            l=0;
+            r=i+1;
+
+            ans=i+1;
+         }
+         else if(m.find(v[i])!=m.end())
+         {
+            int curr=i-m[v[i]];
+
+            if(curr>ans)
+            {
+               l=m[v[i]]+1;
+               r=i+1;
+               ans=curr;
+            }
+         }
+         else
+         {
+            m[v[i]]=i;
+         }
+      }
+
+
+   // cout<<endl;
+   // cout<<l<<" "<<r<<endl;
+
+      return make_pair(l,r);
+}
+ 
+ll solve()
+{
+    ll n,m;
+    cin>>n>>m;
+
+    ll arr[n][m];
+
+    //cout<<n<<" "<<m<<endl;
+
+
+    loop(i,0,n)
+    {
+      loop(j,0,m)
+      {
+         ll x;
+         cin>>x;
+
+          if(x)
+         arr[i][j]=1;
+        else
+         arr[i][j]=-1;
+      }
+    }
+
+    int ans=0;
+
+    int up=0;
+    int down=0;
+    int left=0;
+    int right=0;
+
+    loop(i,0,n)
+    {
+      vector<int>tem(m,0);
+
+        loop(j,i,n)
+        {
+           loop(k,0,m)
+           {
+
+              tem[k]=tem[k]+arr[j][k];
+           }
+          
+           
+          // cout<<tem.size()<<endl;
+
+           pair<int,int>p=fun(tem);
+
+           int curr=(j-i+1)*(p.second-p.first);
+
+            //cout<<curr<<" "<<i<<" "<<j<<" "<<p.second<<" "<<p.first<<endl;
+
+           if(curr>ans && p.second!=0)
+           {
+           
+              up=i;
+              down=j;
+              left=p.first;
+              right=p.second-1;
+              ans=curr;
+           }
+        }
+    }
+     
+     cout<<ans<<endl;
+
+   //  cout<<up<<" "<<down<<" "<<left<<" "<<right<<endl;
+
+    for(int i=up;i<=down;i++)
+    {
+      for(int j=left;j<=right;j++)
+      {
+         cout<<arr[i][j]<<" ";
+      }
+
+      cout<<endl;
+    }
+
+}
+
+int main()
+{
+
+      ios_base::sync_with_stdio(false);
+      cin.tie(NULL);
+
+      #ifndef ONLINE_JUDGE
+      freopen("input.txt", "r", stdin);
+      freopen("output11.txt", "w", stdout);
+      #endif  
+    
+   
+      ll t=1;
+    // cin>>t;
+
+       //cout<<"hii"<<endl;
+
+
+     while(t--)
+     {
+        //cout<<"hii"<<endl;
+
+         solve();
+     }
+
+    #ifndef ONLINE_JUDGE
+     cout << "\nTime Elapsed: " << (1000.0 * clock()) / CLOCKS_PER_SEC << " ms \n";
+    #endif
+
+    return 0;
+}

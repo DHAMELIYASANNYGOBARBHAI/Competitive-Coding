@@ -1,0 +1,25 @@
+ long long countWays(int n, int k)
+    {
+       long long int mod=1000000007;
+       long long int dp[2][n+1];
+       
+       if(n==0)
+       return 0;
+       
+       if(n==1)
+       return k;
+       
+       dp[0][2]=k%mod;  // last two o and 1 are same
+       dp[1][2]=((k%mod)*((k-1)%mod))%mod; // last two 0 and 1 are diffrent
+       
+       for(int i=3;i<=n;i++)
+       {
+           dp[0][i]=dp[1][i-1]; // last intreation  (last two are diffrent take) and use it to that
+          // last two are same 
+           dp[1][i]=(((dp[0][i-1] + dp[1][i-1])%mod)*((k-1)%mod))%mod;
+           
+           // total take becuse hear we do last two are dirrent so last color othen then k-1 will use to do this opration
+       }
+       
+       return (dp[0][n] + dp[1][n])%mod;
+    }
